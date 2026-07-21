@@ -1,4 +1,10 @@
 pip install flask
 pip install sqalchemy
 pip install SQL
+
+pip install SQLAlchemy
+pip install Flask
+pip install Flask-SQLAlchemy
+pip install pyOpenSSL 
+pip install requests
 pip install cryptography
