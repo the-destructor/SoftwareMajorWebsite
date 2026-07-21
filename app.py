@@ -41,7 +41,7 @@ def hash_password(password, salt):
     return hashlib.sha256((password + salt).encode()).hexdigest()
 
 
-@app.route("/index.html", methods=["POST", "GET"])
+@app.route("/index2.html", methods=["POST", "GET"])
 @app.route("/", methods=["POST", "GET"])
 def home():
     try:
@@ -52,10 +52,10 @@ def home():
             username = request.form["username"]
             password = request.form["password"]
         else:
-            return render_template("index.html")
+            return render_template("index2.html")
     except:
         print("error in index")
-        return render_template("index.html")
+        return render_template("index2.html")
 
 if __name__ == "__main__":
 
