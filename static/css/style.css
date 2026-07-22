@@ -1,0 +1,10 @@
+.navbar {
+  /* Replace with your image file path or URL */
+  background-image: url('../images/bricks.png'); 
+  
+  /* Prevents the image from duplicating if it is small */
+  background-repeat: repeat;
+  
+  /* Centers the image within the element */
+  background-position: center; 
+}

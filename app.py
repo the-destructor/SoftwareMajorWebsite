@@ -14,14 +14,6 @@ import re
 
 app = Flask(__name__)
 
-@app.after_request
-def add_security_headers(response):
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['Content-Security-Policy'] = "default-src 'self'; object-src 'none';"
-    return response
-
 
 def is_strong_password(password):
     if len(password) < 8:
@@ -41,7 +33,7 @@ def hash_password(password, salt):
     return hashlib.sha256((password + salt).encode()).hexdigest()
 
 
-@app.route("/index2.html", methods=["POST", "GET"])
+@app.route("/index.html", methods=["POST", "GET"])
 @app.route("/", methods=["POST", "GET"])
 def home():
     try:
@@ -52,13 +44,12 @@ def home():
             username = request.form["username"]
             password = request.form["password"]
         else:
-            return render_template("index2.html")
+            return render_template("index.html")
     except:
         print("error in index")
-        return render_template("index2.html")
+        return render_template("index.html")
 
 if __name__ == "__main__":
 
-    app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
     app.run(debug=True, host="0.0.0.0", port=5000)
