@@ -1,0 +1,18 @@
+-- database: ./database.db
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT NOT NULL UNIQUE, password TEXT NOT NULL, salt TEXT NOT NULL, email TEXT NOT NULL, role TEXT DEFAULT 'user');
+
+INSERT INTO users(username,password,salt,email,role) VALUES ("admin","0d8f2ec150067772c31fc3d3414436390454188fa267db9362bbed607d38e204", "9891f09b127f50df0e06c0a36913453d", "gAAAAABqhXAFkLvjEiJc7x_UFwIvKvgPfxUuJKLHLwrtQZ7-HnhHO6ggN1x4UvWUJZ8w7_YgdNagNdpI-1cwBp9cZ345HQqRlw==
+", "admin");
+
+-- admin, Password1!, /, admin@gmail.com, admin
+
+--SELECT * FROM extension;
+
+CREATE TABLE feedback(id INTEGER PRIMARY KEY AUTOINCREMENT,feedback TEXT NOT NULL);
+
+--INSERT INTO feedback(feedback) VALUES ("Great website!");
+
+DELETE FROM feedback WHERE id > 12;
