@@ -133,6 +133,8 @@ def signup():
             new_salt = secrets.token_hex(16)
             hashed_password = hash_password(password, new_salt)
             dbHandler.insertUser(username, hashed_password, new_salt, new_email)
+            session["username"] = username
+            session["logged_in"] = True
             return redirect("/")
         else:
             return render_template("signup.html")
