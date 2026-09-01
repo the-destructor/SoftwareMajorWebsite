@@ -9,9 +9,11 @@ import hashlib                              # contains hash function
 import getpass                              # make password hidden                               # Used to create a timeout for the validation code
 from cryptography.fernet import Fernet      # pip install cryptography
 
+#this function returns the key as binary data
 def load_key():
     return open("secret.key", "rb").read()
 
+#this function encrypts the string using the saved key.
 def encrypt_message(message_text):
     key = load_key()
     encoded_message = message_text.encode()
@@ -19,6 +21,7 @@ def encrypt_message(message_text):
     encrypted_message = f.encrypt(encoded_message)
     return encrypted_message
 
+#this function decrypts the string using the saved key.
 def decrypt_message(encrypted_message_text):
     key = load_key()
     f = Fernet(key)
@@ -36,6 +39,7 @@ def is_valid_email_regex(email):
     else:
         return False
 
+#this function inserts a new line of data into the user database, containing a username, hashed password, salt and email
 def insertUser(username, password, salt, email):
     con = sql.connect("database_files/database.db")
     cur = con.cursor()
@@ -46,6 +50,10 @@ def insertUser(username, password, salt, email):
     con.commit()
     con.close()
 
+#this function retrieves data from the user database,
+#the function checks if there are any usernames stored in the data that match with the username trying to be retrieved
+#if there is, it then trys to find any usernames stored in the data that also have the password
+#if it finds this then it returns True, otherwise it will return False.
 def retrieveUsers(username, password):
     con = sql.connect("database_files/database.db")
     cur = con.cursor()
@@ -61,7 +69,10 @@ def retrieveUsers(username, password):
         else:
             con.close()
             return True
-        
+
+#this function retrieves the salt corresponding with the username
+#the function checks if there are any usernames stored in the data that match with the username trying to be retrieved
+#if so it will select the salt corresponding with that username and return that
 def retrieveSalt(username):
     con = sql.connect("database_files/database.db")
     cur = con.cursor()
@@ -74,15 +85,6 @@ def retrieveSalt(username):
         return cur.fetchone()[0]
 
 
-def insertFeedback(feedback):
-    con = sql.connect("database_files/database.db")
-    cur = con.cursor()
-    cur.execute("INSERT INTO feedback (feedback) VALUES (?)",(feedback,))
-    con.commit()
-    con.close()
-
-
-def listFeedback():
     con = sql.connect("database_files/database.db")
     cur = con.cursor()
     data = cur.execute("SELECT * FROM feedback").fetchall()

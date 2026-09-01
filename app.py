@@ -18,20 +18,24 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
 
+#this function generates an encryption key and writes it into the secret.key file
 def generate_and_save_key():
     key = Fernet.generate_key()
     with open("secret.key", "wb") as key_file:
         key_file.write(key)
 
+#this function returns the key as binary data
 def load_key():
     return open("secret.key", "rb").read()
 
+#this function generates a csrf token if there isn't one in the session and then stores it in the session.
 def generate_csrf_token():
     if "csrf_token" not in session:
         session["csrf_token"] = secrets.token_hex(32)
     return session["csrf_token"]
 app.jinja_env.globals["csrf_token"] = generate_csrf_token
 
+#this function checks if the tokens from the form is the correct token, to prevent Cross-site request forgery.
 def validate_token():
     token = session.get("csrf_token")
     form_token = request.form.get("csrf_token")
@@ -39,6 +43,7 @@ def validate_token():
     if not token or token != form_token:
         abort(400)
 
+#this function encrypts the string using the saved key.
 def encrypt_message(message_text):
     key = load_key()
     encoded_message = message_text.encode()
@@ -46,12 +51,14 @@ def encrypt_message(message_text):
     encrypted_message = f.encrypt(encoded_message)
     return encrypted_message
 
+#this function decrypts the string using the saved key.
 def decrypt_message(encrypted_message_text):
     key = load_key()
     f = Fernet(key)
     decrypted_message = f.decrypt(encrypted_message_text)
     return decrypted_message.decode()
 
+#this function checks if the string contains these characters and has a length above 8
 def is_strong_password(password):
     if len(password) < 8:
         return False
@@ -66,9 +73,14 @@ def is_strong_password(password):
     return True
 
 
+#this function combines two strings and runs them through a hashlib which hashes them.
 def hash_password(password, salt):
     return hashlib.sha256((password + salt).encode()).hexdigest()
 
+#This is the log out page, it renders the log out template and runs the function
+# when the user presses the submit button on the form the request method will be POST so 
+# it will clear the session cache and refresh the page which effectively logs out the user
+# it will then redirect to the home page.
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
     try:
@@ -87,6 +99,11 @@ def logout():
         return render_template("logout.html")
     
 
+#This is the log in page, it renders the log in template and runs the function
+# when the user presses the submit button on the form the request method will be POST so 
+# it will check if the username and password match up with an account by asking the
+# dbHandler file to run a function that checks, the dbHandler file is called user_management.py
+# if the user successfully logs in it will store that in the session and redirect to the home page.
 @app.route("/login", methods=["POST", "GET"])
 def login():
     try:
@@ -114,8 +131,12 @@ def login():
         print("error in login")
         return render_template("login.html")
 
-
-@app.route("/signup", methods=["POST", "GET"])
+##Runs the sign up method and renders the sign up html template, 
+# when the user presses the submit button on the form the request method will be POST so it will check if the username
+# , email, and password are valid and then securely store the details via user_management.py by 
+# hashing and salting the password and encrypting every other piece of user data
+# , it will then redirect the page back to the home page.
+@app.route("/signup", methods=["POST", "GET"])  
 def signup():
     try:
         if session.get("logged_in"):
@@ -142,8 +163,11 @@ def signup():
         print("error in signup")
         return render_template("signup.html")
 
+
+##Runs the home method and renders the index html template, 
+# like every other template, if the session token is invalid it will abort the webpage.
 @app.route("/index.html", methods=["POST", "GET"])
-@app.route("/", methods=["POST", "GET"])
+@app.route("/", methods=["GET"])
 def home():
     try:
         if session.get("logged_in"):
@@ -151,9 +175,6 @@ def home():
         if request.method == "GET" and request.args.get("url"):
             url = request.args.get("url", "")
             return redirect(url, code=302)
-        if request.method == "POST":
-            username = request.form["username"]
-            password = request.form["password"]
         else:
             return render_template("index.html")
     except:
