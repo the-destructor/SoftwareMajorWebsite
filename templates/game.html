@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KaneProject</title>
+    <link rel="stylesheet" href="static/css/style.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body style="color: white;">
+    <div class="parallax-grid"></div>
+    <div class="container d-flex justify-content-center align-items-center vh-50">
+        <h1 style="margin:2%" class="neon-text">{{gameTitle}}</h1>
+        
+          
+    </div>
+    <div class="container d-flex justify-content-center align-items-center vh-50">
+        <div class="container p-0 glow2-border w-75" style="background-image:  linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('static/images/bricks2.png')">
+            <iframe 
+                src="{{ url_for('static', filename='games/' + gameFileLocation + 'index.html') }}"
+                title="{{gameTitle}}"
+                style="width:100%; height:80vh; border:none;">
+            </iframe>
+        </div>
+    </div>
+    <div>
+        <h1 style="margin:2%" class="neon-text">Description</h1>
+        <p style="margin:2%">{{description | nl2br | safe}}</p>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+{% endblock %}

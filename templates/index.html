@@ -3,53 +3,52 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>KaneProject</title>
     <link rel="stylesheet" href="static/css/style.css">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
-  <body style="background-color: #101023; color: white;">
-    
-
+  <body style="color: white;">
+    <div class="parallax-grid"></div>
 
 <div class="container-fluid text-center" style ="margin: 5px 5px">
-  <div class="row container-fluid text-center pt-3 border-top border-danger">
+  <div class="row container-fluid text-center pt-3 glow2-border background" style="padding-bottom: 3%;">
     <div class="col">
-      <h1><br>Welcome </h1>
+      <h1 class="neon-text"><br>Welcome </h1>
       <h4 style="text-align: left;">About Cool English Games</h4>
       <p style="text-align: left;">This is such a cool learning space for kewl gamerz faxxxx haha xD lmao haha rofl</p>
     </div>
   </div>
-  <div class="row border-top border-danger" style="margin-top:3%">
-    <h1><br>Popular Games!!</h1>
-    <div class="col rounded border border-primary" style="margin:2%; background-color: #141418;">
+  <div class="row">
+    <h1 class="neon-text"><br>Popular Games!!</h1>
+    <div class="col rounded border border-primary glow-card" style="margin:2%; background-color: #141418;">
 
-      <button type="button" class="btn" style="margin: 0px; padding:0px;">
+      <a type="button" href="{{ url_for('load_game', game_title='Fart Game', location ='FartGame/') }}" class="btn" style="margin: 0px; padding:0px;">
         <div class="card text-bg-dark">
-          <img src="static/images/FartGameCover.png" alt="Game 1" style="width: 100%;  aspect-ratio: 1 / 1; object-fit: cover;">
+          <img src="static/images/FartGameCover.png" alt="FartGame" style="width: 100%;  aspect-ratio: 1 / 1; object-fit: cover;">
           <div class="card-img-overlay" style="text-shadow: #101023 2px 2px 1px;">
             <h5 class="card-title">Fart Game</h5>
             <p class="card-text">The journey all poops must go through, Fart Game follows Poop as he finds his way through the sewer... an epic platformer that requires skill and precision and skill and patience!!</p>
-            <p class="card-text"><small>Last updated 3 mins ago</small></p>
+            <p class="card-text"><small>2026</small></p>
           </div>
         </div>
-      </button>
+      </a>
 
     </div>
-    <div class="col rounded border border-primary" style="margin:2%; background-color: #141418;">
+    <div class="col rounded border border-primary glow-card" style="margin:2%; background-color: #141418;">
 
-      <button type="button" class="btn" style="margin: 0px; padding:0px;">
+    <a type="button" href="{{ url_for('load_game', game_title='Rainy Tree', location ='RainyTree/') }}" class="btn" style="margin: 0px; padding:0px;">
         <div class="card text-bg-dark">
-          <img src="static/images/CoolmathGamesLOGO.jpg" alt="Game 2" style="width: 100%;  aspect-ratio: 1 / 1; object-fit: cover;">
+          <img src="static/images/rainyTreecover.png" alt="RainyTree" style="width: 100%;  aspect-ratio: 1 / 1; object-fit: cover;">
           <div class="card-img-overlay" style="text-shadow: #101023 2px 2px 1px;">
-            <h5 class="card-title">Game 2</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small>Last updated 3 mins ago</small></p>
+            <h5 class="card-title">Rainy Tree</h5>
+            <p class="card-text">Kane and Linc's awesome game about things unrelated to rain or trees... or is there perhaps a small reference to that??? find out...</p>
+            <p class="card-text"><small>2023</small></p>
           </div>
         </div>
-      </button>
+      </a>
 
     </div>
-    <div class="col rounded border border-primary" style="margin:2%; background-color: #141418;">
+    <div class="col rounded border border-primary glow-card" style="margin:2%; background-color: #141418;">
       
       <button type="button" class="btn" style="margin: 0px; padding:0px;">
         <div class="card text-bg-dark">

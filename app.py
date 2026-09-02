@@ -24,7 +24,7 @@ def generate_and_save_key():
     with open("secret.key", "wb") as key_file:
         key_file.write(key)
 
-#this function returns the key as binary data
+
 def load_key():
     return open("secret.key", "rb").read()
 
@@ -97,7 +97,51 @@ def logout():
     except:
         print("error in logout")
         return render_template("logout.html")
-    
+
+@app.route("/game", methods=["GET"])
+def load_game():
+    try:
+        if request.method == "GET" and request.args.get("url"):
+                   url = request.args.get("url", "")
+                   return redirect(url, code=302)
+        else:
+            game_title = request.args.get('game_title')
+            game_file_location = request.args.get('location')
+            description = load_description(sanitize_title(game_title))
+            return render_template("game.html", gameTitle = game_title, gameFileLocation = game_file_location, description = description)
+        
+    except:
+        print("error in load game")
+        return render_template("index.html")
+
+#loads the description file for the game and returns it
+def load_description(name):
+    path = f"descriptions/{name}.txt"
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return "No description available."
+
+def sanitize_title(title):
+    title = title.lower()
+    # Lowercase, remove spaces, remove non‑alphanumeric characters
+    cleaned = re.sub(r'[^a-z0-9]', '', title.replace(" ", ""))
+    return cleaned
+
+#makes it so \n is replaced with a <br> which makes it so my text files have line breaks
+@app.template_filter('nl2br')
+def nl2br(value):
+    return value.replace('\n', '<br>')
+
+@app.route("/search")
+def search():
+    try:
+        return render_template("search.html")
+            
+    except:
+        print("error in search")
+        return render_template("search.html")
 
 #This is the log in page, it renders the log in template and runs the function
 # when the user presses the submit button on the form the request method will be POST so 

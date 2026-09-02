@@ -1,0 +1,9 @@
+As an attacker you want to click the same direction as the defender to hit them
+As a defender you don't want that
+You have three lives and can attack three times before the role of being an attacker and defender switch
+
+Art by Linc
+Code by Kane
+Everything else by both Kane and Linc
+
+This project was made in 2023 for Year 9 Game Design

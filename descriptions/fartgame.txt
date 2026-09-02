@@ -1,0 +1,15 @@
+Up arrow to change the song
+Down arrow to toggle music volume on and off
+Left arrow to lower the music volume
+Right arrow to raise the music volume
+
+
+Right control to mute player sounds
+
+Move towards the mouse pointer
+
+
+This game is a platformer game that is moderately difficult.
+
+Made by Kane
+Uses stock images

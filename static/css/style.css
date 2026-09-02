@@ -8,3 +8,138 @@
   /* Centers the image within the element */
   background-position: center; 
 }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #0a0f1f 0%, #000 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.background {
+  background: radial-gradient(circle at center, #0a0f1f 0%, #000 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.parallax-grid {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  inset: 0;
+  height: 100%;
+  background-image:
+    linear-gradient(#00aaff22 1px, transparent 1px),
+    linear-gradient(90deg, #00aaff22 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(800px) rotateX(60deg);
+  animation: gridScroll 10s linear infinite;
+  filter: drop-shadow(0 0 10px #00aaff) drop-shadow(0 0 20px #0077ff);
+}
+
+@keyframes gridScroll {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 600px, 0 600px; }
+}
+
+.glow-card {
+  background-color: rgba(10, 15, 30, 0.9);
+  border: 1px solid #00aaff;
+  box-shadow:
+    0 0 10px #00aaff,
+    0 0 20px #0077ff;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.glow-card:hover {
+  box-shadow:
+    0 0 20px #00aaff,
+    0 0 40px #0077ff;
+}
+
+.glow1-border {
+  background-color: rgba(10, 15, 30, 0.9);
+  border: 1px solid #00aaff;
+  box-shadow:
+    0 0 10px #00aaff,
+    0 0 20px #0077ff;
+  border-radius: 10px;
+}
+
+.glow2-border {
+  background-color: rgba(10, 15, 30, 0.9);
+  border: 1px solid #ff3355;
+  box-shadow:
+    0 0 10px #ff3355,
+    0 0 20px #ff3355;
+  border-radius: 10px;
+}
+
+.glow3-border {
+  background-color: rgba(10, 15, 30, 0.9);
+  border: 1px solid #18ff65;
+  box-shadow:
+    0 0 10px #18ff65,
+    0 0 20px #18ff65;
+  border-radius: 10px;
+}
+
+.glow4-border {
+  background-color: rgba(10, 15, 30, 0.9);
+  border: 1px solid #fff718;
+  box-shadow:
+    0 0 10px #fff718,
+    0 0 20px #fff718;
+  border-radius: 10px;
+}
+
+.glow5-border {
+  background-color: rgba(10, 15, 30, 0.9);
+  border-bottom: 1px solid #18ff65;
+  box-shadow:
+    0 2px 4px #18ff65,
+    0 4px 8px #18ff65
+}
+
+.neon-text {
+  color: white; /* your primary neon color */
+  text-shadow:
+    0 0 5px #00aaff,
+    0 0 10px #00aaff,
+    0 0 20px #00aaff,
+    0 0 40px #0077ff;
+}
+
+.neon-button {
+  background: transparent;
+  border: 2px solid #ff3355;
+  color: #ff3355;
+  padding: 10px 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #ff3355;
+  transition: all 0.3s ease;
+}
+
+.neon-button:hover {
+  background: #ff3355;
+  color: #fff;
+  box-shadow: 0 0 20px #ff3355, 0 0 40px #ff3355;
+}
+
+.neon2-button {
+  background: transparent;
+  border: 2px solid #18ff65;
+  color: #18ff65;
+  padding: 10px 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px #18ff65;
+  transition: all 0.3s ease;
+}
+
+.neon2-button:hover {
+  background: #18ff65;
+  color: #fff;
+  box-shadow: 0 0 20px #18ff65, 0 0 40px #18ff65;
+}
