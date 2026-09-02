@@ -18,6 +18,13 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
 
+@app.before_request
+def global_redirect_handler():
+    if request.method == "GET":
+        url = request.args.get("url")
+        if url:
+            return redirect(url, code=302)
+        
 #this function generates an encryption key and writes it into the secret.key file
 def generate_and_save_key():
     key = Fernet.generate_key()
@@ -84,9 +91,6 @@ def hash_password(password, salt):
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
     try:
-        if request.method == "GET" and request.args.get("url"):
-                   url = request.args.get("url", "")
-                   return redirect(url, code=302)
         if request.method == "POST":
             validate_token()
             session.clear()
@@ -98,17 +102,15 @@ def logout():
         print("error in logout")
         return render_template("logout.html")
 
+
+#loads the game html, setting the variables as specific things depending on the game that is played.
 @app.route("/game", methods=["GET"])
 def load_game():
     try:
-        if request.method == "GET" and request.args.get("url"):
-                   url = request.args.get("url", "")
-                   return redirect(url, code=302)
-        else:
-            game_title = request.args.get('game_title')
-            game_file_location = request.args.get('location')
-            description = load_description(sanitize_title(game_title))
-            return render_template("game.html", gameTitle = game_title, gameFileLocation = game_file_location, description = description)
+        game_title = request.args.get('game_title')
+        game_file_location = request.args.get('location')
+        description = load_description(sanitize_title(game_title))
+        return render_template("game.html", gameTitle = game_title, gameFileLocation = game_file_location, description = description)
         
     except:
         print("error in load game")
@@ -154,9 +156,6 @@ def login():
         if session.get("logged_in"):
             print("User is logged in:", session["username"])
             return redirect(url_for("logout"))
-        if request.method == "GET" and request.args.get("url"):
-            url = request.args.get("url", "")
-            return redirect(url, code=302)
         if request.method == "POST":
             validate_token()
             username = request.form["username"]
@@ -185,9 +184,6 @@ def signup():
     try:
         if session.get("logged_in"):
             print("User is logged in:", session["username"])
-        if request.method == "GET" and request.args.get("url"):
-            url = request.args.get("url", "")
-            return redirect(url, code=302)
         if request.method == "POST":
             validate_token()
             username = request.form["username"]
@@ -216,11 +212,7 @@ def home():
     try:
         if session.get("logged_in"):
             print("User is logged in:", session["username"])
-        if request.method == "GET" and request.args.get("url"):
-            url = request.args.get("url", "")
-            return redirect(url, code=302)
-        else:
-            return render_template("index.html")
+        return render_template("index.html")
     except:
         print("error in index")
         return render_template("index.html")
